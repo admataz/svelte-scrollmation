@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Svelte Scroller</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .day {
+        margin: 0 40px;
+        padding: 0;
+        font-size: 12em;
+      }
+    </style>
+  </head>
+  <body>
+    <scroll-mation id="demoscroll" duration="3000">
+      <div class="day">
+        🌞
+      </div>
+    </scroll-mation>
+
+    <script src="scrollmation.js"></script>
+    <script src="util.js"></script>
+    <script>
+
+       const demoScroll =  document.querySelector('#demoscroll')
+
+       demoScroll.duration = 5000
+       demoScroll.startpos = -80
+       demoScroll.homepos = 20
+       demoScroll.endpos = -80
+
+       demoScroll.addEventListener("next", (e) => console.log("next"));
+       demoScroll.addEventListener("prev", (e) => console.log("prev"));
+       demoScroll.addEventListener("home", (e) => console.log("home"));
+       demoScroll.addEventListener("scroll", (e) => {
+        
+        // console.log('toHomeRatio', toHomeRatio(e.detail));
+        console.log('toStartRatio', toStartRatio(e.detail));
+        // console.log('toEndRatio', toEndRatio(e.detail));
+        // console.log('toRangeRatio', toRangeRatio(e.detail));
+        // console.log('fullRangePx', fullRangePx(e.detail));
+        // console.log('toHomePx', toHomePx(e.detail));
+        // console.log('toEndPx', toEndPx(e.detail));
+        // console.log('toStartPx', toStartPx(e.detail));
+
+       });
+    </script>
+  </body>
+</html>
