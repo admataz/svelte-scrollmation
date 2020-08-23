@@ -1,6 +1,6 @@
 {
   "name": "svelte-scrollmation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Svelte.js component for advanced reactive scrolling behaviour for your content elements",
   "main": "public/scrollmation.js",
   "svelte": "Scrollmation.svelte",
