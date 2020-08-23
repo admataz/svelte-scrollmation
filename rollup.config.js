@@ -7,7 +7,7 @@ import { terser } from 'rollup-plugin-terser';
 const production = !process.env.ROLLUP_WATCH;
 
 export default {
-	input: 'Scrollmation.svelte',
+	input: 'scrollmation.svelte',
 	output: {
 		sourcemap: true,
 		format: 'iife',

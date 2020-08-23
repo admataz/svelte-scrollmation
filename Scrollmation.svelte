@@ -28,7 +28,6 @@
   import { afterUpdate, createEventDispatcher, onMount } from "svelte";
   import { tweened } from "svelte/motion";
   import { cubicOut, linear } from "svelte/easing";
-
   import { get_current_component } from "svelte/internal";
 
   const component = get_current_component();
@@ -59,14 +58,14 @@
   let scrollDir;
   let targetPos = "home";
   let loading = true;
+  let scrolldata = {};
 
   export let startpos = 0; // px past the end
   export let homepos = 0; //px from the top
   export let endpos = 0; // px above the top - or negative value for before the end
   export let duration = 900;
   export let easing = cubicOut;
-  export let scrolldata = {};
-  export let isPrevNav = false;
+  export let isprevnav = false;
   export let scrolltoposition = null;
   export let jumptoposition = null;
   export let pgId = 0;
@@ -81,7 +80,7 @@
     let action = null;
 
     if (prevScrollPosPx !== scrollPosPx) {
-      dispatch("scroll", scrolldata);
+      dispatch("scroll", scrolldata, pgId);
       if (scrollPosPx === endScrollPosPx) {
         action = "next";
       }
@@ -92,22 +91,14 @@
       if (scrollPosPx === homeScrollPos) {
         action = "home";
       }
-
-      if (animatingScroll && scrollPosPx === targetScrollPx) {
-        dispatch(action, scrolldata);
-        return;
-      }
-
-      if (!animatingScroll && action) {
-        dispatch(action, scrolldata);
-      }
+      dispatch(action, scrolldata);
     }
   }
 
   function onWheel(e) {
     if (animatingScroll) {
       e.preventDefault();
-    }
+    } 
   }
 
   export let progress = tweened(0, {
@@ -157,14 +148,14 @@
 //   providing a natural flow when going back
   async function initPos(p) {
     setTimeout(async () => {
-      if (isPrevNav) {
+      if (isprevnav) {
         await scrollToPos("beforeEnd", false);
       } else {
         await scrollToPos("beforeStart", false);
       }
-      animatingScroll = true;
       loading = false;
       await scrollToPos("home");
+
     }, 200);
   }
 
@@ -183,7 +174,8 @@
       endScrollPosPx,
       startScrollPosPx,
       homeScrollPos,
-      scrollDir
+      scrollDir,
+      animatingScroll,
     };
   }
 </script>
